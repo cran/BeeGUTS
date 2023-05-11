@@ -1,3 +1,29 @@
+# BeeGUTS 1.1.2
+* Reduce the size of the package to fulfil CRAN requirements
+
+# Version 1.1.1
+* Correction of the default value for parameter k_sr for _Honey Bee_.
+* Update of the Tutorial
+
+
+# Version 1.1.0
+## New features
+* Added new species. It is now possible to use the package for _Honey Bee_, 
+_Bumble Bee_,  _Osmia bicornis_, and a _User defined bee_
+
+## Update
+* Update of the package syntax for compatibility with the upcoming rstan 2.26 
+
+## Bug fixes
+* Correction of a bug in the LCx summary function (object LCx$dfLCx is a list and was not printed in the previous version)
+* Correction of the documentation
+*  Increase the time sequence resolution when recalculating the concentrations. A too low resolution can lead to errors when the experiments run for partial days (e.g. 2.25 days in the acute oral). 
+
+
+# Version 1.0.1
+* Correct bug in the summary function where the summary of the `beeSurvFit` class would
+use the wrong function.
+
 # Version 1.0.0
 * Add possibility to use more than one dataset at a time. One file should be loaded
 per datasets. The concentrations should be expressed in the same unit.

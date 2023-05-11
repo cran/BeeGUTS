@@ -244,9 +244,9 @@ struct linearInterp_functor__ {
 };
 template <bool propto, typename T0__, typename T1__, typename T2__>
 typename boost::math::tools::promote_args<T0__, T1__, T2__>::type
-loglogistic_lpdf(const T0__& y_hat,
-                     const T1__& mw,
-                     const T2__& beta, std::ostream* pstream__) {
+loglogistic_2_lpdf(const T0__& y_hat,
+                       const T1__& mw,
+                       const T2__& beta, std::ostream* pstream__) {
     typedef typename boost::math::tools::promote_args<T0__, T1__, T2__>::type local_scalar_t__;
     typedef local_scalar_t__ fun_return_scalar_t__;
     const static bool propto__ = true;
@@ -265,25 +265,25 @@ loglogistic_lpdf(const T0__& y_hat,
 }
 template <typename T0__, typename T1__, typename T2__>
 typename boost::math::tools::promote_args<T0__, T1__, T2__>::type
-loglogistic_lpdf(const T0__& y_hat,
-                     const T1__& mw,
-                     const T2__& beta, std::ostream* pstream__) {
-    return loglogistic_lpdf<false>(y_hat,mw,beta, pstream__);
+loglogistic_2_lpdf(const T0__& y_hat,
+                       const T1__& mw,
+                       const T2__& beta, std::ostream* pstream__) {
+    return loglogistic_2_lpdf<false>(y_hat,mw,beta, pstream__);
 }
-struct loglogistic_lpdf_functor__ {
+struct loglogistic_2_lpdf_functor__ {
     template <bool propto, typename T0__, typename T1__, typename T2__>
         typename boost::math::tools::promote_args<T0__, T1__, T2__>::type
     operator()(const T0__& y_hat,
-                     const T1__& mw,
-                     const T2__& beta, std::ostream* pstream__) const {
-        return loglogistic_lpdf(y_hat, mw, beta, pstream__);
+                       const T1__& mw,
+                       const T2__& beta, std::ostream* pstream__) const {
+        return loglogistic_2_lpdf(y_hat, mw, beta, pstream__);
     }
 };
 template <typename T0__, typename T1__, typename T2__>
 typename boost::math::tools::promote_args<T0__, T1__, T2__>::type
-loglogistic_lcdf(const T0__& y_hat,
-                     const T1__& mw,
-                     const T2__& beta, std::ostream* pstream__) {
+loglogistic_2_lcdf(const T0__& y_hat,
+                       const T1__& mw,
+                       const T2__& beta, std::ostream* pstream__) {
     typedef typename boost::math::tools::promote_args<T0__, T1__, T2__>::type local_scalar_t__;
     typedef local_scalar_t__ fun_return_scalar_t__;
     const static bool propto__ = true;
@@ -300,20 +300,20 @@ loglogistic_lcdf(const T0__& y_hat,
         throw std::runtime_error("*** IF YOU SEE THIS, PLEASE REPORT A BUG ***");
     }
 }
-struct loglogistic_lcdf_functor__ {
+struct loglogistic_2_lcdf_functor__ {
     template <typename T0__, typename T1__, typename T2__>
         typename boost::math::tools::promote_args<T0__, T1__, T2__>::type
     operator()(const T0__& y_hat,
-                     const T1__& mw,
-                     const T2__& beta, std::ostream* pstream__) const {
-        return loglogistic_lcdf(y_hat, mw, beta, pstream__);
+                       const T1__& mw,
+                       const T2__& beta, std::ostream* pstream__) const {
+        return loglogistic_2_lcdf(y_hat, mw, beta, pstream__);
     }
 };
 template <typename T0__, typename T1__, typename T2__>
 typename boost::math::tools::promote_args<T0__, T1__, T2__>::type
-loglogistic_lccdf(const T0__& y_hat,
-                      const T1__& mw,
-                      const T2__& beta, std::ostream* pstream__) {
+loglogistic_2_lccdf(const T0__& y_hat,
+                        const T1__& mw,
+                        const T2__& beta, std::ostream* pstream__) {
     typedef typename boost::math::tools::promote_args<T0__, T1__, T2__>::type local_scalar_t__;
     typedef local_scalar_t__ fun_return_scalar_t__;
     const static bool propto__ = true;
@@ -330,13 +330,13 @@ loglogistic_lccdf(const T0__& y_hat,
         throw std::runtime_error("*** IF YOU SEE THIS, PLEASE REPORT A BUG ***");
     }
 }
-struct loglogistic_lccdf_functor__ {
+struct loglogistic_2_lccdf_functor__ {
     template <typename T0__, typename T1__, typename T2__>
         typename boost::math::tools::promote_args<T0__, T1__, T2__>::type
     operator()(const T0__& y_hat,
-                      const T1__& mw,
-                      const T2__& beta, std::ostream* pstream__) const {
-        return loglogistic_lccdf(y_hat, mw, beta, pstream__);
+                        const T1__& mw,
+                        const T2__& beta, std::ostream* pstream__) const {
+        return loglogistic_2_lccdf(y_hat, mw, beta, pstream__);
     }
 };
 template <typename T0__, typename T1__, typename T2__, typename T3__>
