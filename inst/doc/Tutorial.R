@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 ## ----example------------------------------------------------------------------
 library(BeeGUTS)
 file_location <- system.file("extdata", "betacyfluthrin_chronic_ug.txt", package = "BeeGUTS") # Load the path to one of the example file
-lsData <- dataGUTS(file_location = file_location, test_type = 'Chronic_Oral') # Read the example file
+lsData <- dataGUTS(file_location = file_location, test_type = 'Chronic_Oral', cstConcCal = FALSE) # Read the example file
 plot(lsData) # Plot the data
 fit <- fitBeeGUTS(lsData, modelType = "SD", nIter = 2000, nChains = 1) # Fit a SD model. This can take some time...
 traceplot(fit) # Produce a diagnostic plot of the fit
