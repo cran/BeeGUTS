@@ -1,3 +1,6 @@
+# BeeGUTS 1.4
+* Change of maintener
+
 # BeeGUTS 1.3
 * Parallelization of LC/LD calculations
 * Improved handling of hb values for validation and predictions

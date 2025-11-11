@@ -113,3 +113,32 @@ NULL
 #' @references Bayer data.
 #' @keywords dataset
 NULL
+
+
+
+#' Pre-calculated validation results for \emph{Honey bees} exposed to
+#' constant concentration of Betacyfluthrin for 10 days. This is a
+#' toy example that uses the calibrated model of the object
+#' fitBetacyfluthrin_Chronic and the dataset betacyfluthrinChronic
+#'
+#' @name valBetacyfluthrinChronic
+#' @docType data
+#' @usage data(valBetacyfluthrinChronic)
+#' @format A list of class \code{beeSurvFit} constructed by \code{fitBeeGUTS} containing:
+#' \describe{
+#' \item{\code{parsPost}}{A data.frame with the summary of the posterior distribution of the model parameters.}
+#' \item{\code{modelType}}{A character string containing the type of GUTS model used (here 'SD').}
+#' \item{\code{unitData}}{A character string containing the units of the concentration data.}
+#' \item{\code{beeSpecies}}{A character string containing the species of bee of the model (here Honey_Bee).}
+#' \item{\code{beeSpeciesVal}}{A character string containing the species of bee of the validation dataset (here Honey_Bee).}
+#' \item{\code{typeData}}{A character string containing the type of data (here Chronic_Oral).}
+#' \item{\code{setupMCMC}}{A list containing the setup used for the MCMC.}
+#' \item{\code{sim}}{A data.frame with the results of the model prediction.}
+#' \item{\code{EFSA}}{A list containing the results of goodness of fit checks as defined by EFSA.}
+#' \item{\code{data}}{A data.frame with the user data used for the validation.}
+#' \item{\code{dataModel}}{A data.frame with the data that were used for the model calibration.}
+#' \item{\code{hbfit}}{NULL}
+#' }
+#' @references Bayer data.
+#' @keywords dataset
+NULL

@@ -16,9 +16,15 @@ a \code{data.frame} of class \code{ppc}
 Posterior predictive check method for \code{beeSurvValidation} objects
 }
 \examples{
+\donttest{
 data(fitBetacyfluthrin_Chronic)
 data(betacyfluthrinChronic)
 valid <- validate(fitBetacyfluthrin_Chronic,betacyfluthrinChronic)
 out <- ppc(valid)
+}
+data(fitBetacyfluthrin_Chronic)
+data(betacyfluthrinChronic)
+data(valBetacyfluthrinChronic)
+out <- ppc(valBetacyfluthrinChronic)
 
 }

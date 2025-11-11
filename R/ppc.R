@@ -57,10 +57,16 @@ ppc.beeSurvFit <- function(x){
 #' @return a \code{data.frame} of class \code{ppc}
 #'
 #' @examples
+#' \donttest{
 #' data(fitBetacyfluthrin_Chronic)
 #' data(betacyfluthrinChronic)
 #' valid <- validate(fitBetacyfluthrin_Chronic,betacyfluthrinChronic)
 #' out <- ppc(valid)
+#' }
+#' data(fitBetacyfluthrin_Chronic)
+#' data(betacyfluthrinChronic)
+#' data(valBetacyfluthrinChronic)
+#' out <- ppc(valBetacyfluthrinChronic)
 #'
 #' @export
 #'
