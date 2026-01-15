@@ -5,12 +5,14 @@
 \title{Calculate the presence of Time Reinforced Toxicity for the compound from the
 calibrated model \code{beeSurvFit} object.}
 \usage{
-\method{TRT}{beeSurvFit}(object, concRange = NULL)
+\method{TRT}{beeSurvFit}(object, concRange = NULL, ncores = NULL)
 }
 \arguments{
 \item{object}{An object of class \code{beeSurvFit}}
 
 \item{concRange}{Argument of LCx, range of concentrations to find LDD50}
+
+\item{ncores}{Argument of LCx, number of cores for parallelization}
 }
 \value{
 A object of class \code{ggplot} containing the graph of the comparison
@@ -24,6 +26,6 @@ calibrated model \code{beeSurvFit} object.
 \examples{
 \donttest{
 data(fitBetacyfluthrin_Chronic)
-TRT(fitBetacyfluthrin_Chronic)
+TRT(fitBetacyfluthrin_Chronic,ncores=2)
 }
 }

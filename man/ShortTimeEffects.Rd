@@ -9,7 +9,8 @@ ShortTimeEffects(
   object,
   fullcalculation = FALSE,
   concRange = NULL,
-  nPoints = NULL
+  nPoints = NULL,
+  ncores = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ This can increase the computation time}
 
 \item{nPoints}{Argument of LCx, Number of time point in \code{concRange} between 0 and the
 maximal concentration. 100 by default.}
+
+\item{ncores}{Argument of LCx, number of cores for parallelization}
 }
 \value{
 A object of class \code{ggplot} containing the graph of the comparison

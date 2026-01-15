@@ -31,6 +31,7 @@ LCx <- function(object, ...){
 #' highest tested concentration of the calibration experiment.
 #' @param nPoints Number of time point in \code{concRange} between 0 and the
 #' maximal concentration. 100 by default.
+#' @param ncores Number of cores for parallelization
 #' @param ... Further arguments to be passed to generic methods
 #' @param testType Test type for which the \eqn{LC_{X}} is calculated
 #'  amongst "Acute_Oral", "Acute_Contact", and "Chronic_Oral". Note that for
@@ -44,7 +45,7 @@ LCx <- function(object, ...){
 #' @examples
 #' \donttest{
 #' data(fitBetacyfluthrin_Chronic)
-#' out <- LCx(fitBetacyfluthrin_Chronic)
+#' out <- LCx(fitBetacyfluthrin_Chronic,ncores=2)
 #' }
 LCx.beeSurvFit <- function(object,
                            X = 50,
@@ -52,6 +53,7 @@ LCx.beeSurvFit <- function(object,
                            timeLCx = NULL,
                            concRange = NULL,
                            nPoints = 100,
+                           ncores = NULL,
                            ...) {
 
   # library(doParallel)
@@ -104,14 +106,18 @@ LCx.beeSurvFit <- function(object,
   }
 
   # start the parallel cluster
-  chcr <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-  if (nzchar(chcr) && chcr == "TRUE") {
+  # this does not work if the cluster is created with PSOCK
+  # chcr <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+  # if (nzchar(chcr) && chcr == "TRUE") {
+  if(is.null(ncores)){
+    # use all cores in devtools::test()
+    #parallel::detectCores(logical = FALSE)-1L
+    # avoids errors on single core machines
+    ncores = max(1L, parallel::detectCores(logical = FALSE) - 1L)
+  } else {
     # this is needed in order to pass CRAN checks
     # use 2 cores in CRAN/Travis/AppVeyor
-    ncores <- 2L
-  } else {
-    # use all cores in devtools::test()
-    ncores = parallel::detectCores(logical = FALSE)-1L
+    ncores <- ncores
   }
   cl <- parallel::makeCluster(mc <- getOption("cl.cores",ncores))
   doParallel::registerDoParallel(cl)

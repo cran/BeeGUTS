@@ -21,7 +21,7 @@ It shows the median and 95\% credible interval of the calculated LCx.
 \examples{
 \donttest{
 data(fitBetacyfluthrin_Chronic)
-out <- LCx(fitBetacyfluthrin_Chronic)
+out <- LCx(fitBetacyfluthrin_Chronic,ncores=2)
 summary(out)
 }
 }

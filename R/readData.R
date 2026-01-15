@@ -40,6 +40,7 @@
 #'  \item \code{cstConcCal = } logical, recalculate concentration in the Chronic_Oral test from mg a.s./kg feed to Xg/bee (default is TRUE)
 #'  \item \code{f_rate = } numerical vector, feeding rate used in the concentration recalculation in the Chronic_Oral (default is 25 mg/bee/day for honey bee)
 #'  \item \code{targConc =} numerical scalar, target concentration unit in the recalculation in the Chronic_Oral, 1 for µg/bee, 2 for ng/bee, 3 for mg/bee (default is 1).
+#'  \item \code{binning =} binning of the time vector of the exposure for acute tests (Acute_Oral and Acute_Contact), default 0.5 d
 #' }
 #'
 #' @return An object of class \code{beeSurvData}, which is a list with the following information:
@@ -342,18 +343,17 @@ dataGUTS <- function(file_location = NULL,
 #' @param cTime The duration of exposure in days, default is 0.25 d
 #' @param k_sr Stomach release rate (d-1), default is 0.625
 #' @param expTime The duration of the experiment in days
-#' @param ... Not used
+#' @param binning binning of the time vector, default 0.5 d
 #'
 #' @return A data frame containing a column with the time points and a column with the
 #' recalculated concentrations
 #' @export
 #'
 #' @examples conc <- concAO(cExt = cbind(3.5, 6, 8, 10), cTime = 0.25, expTime = 4)
-concAO <- function(cExt, cTime = 0.25, expTime, k_sr = 0.625, ...) {
-  binning <- 0.05
+concAO <- function(cExt, cTime = 0.25, expTime, k_sr = 0.625, binning=0.5) {
   #timePoint <- seq(0, expTime, binning)
   timePoint <- unique(c(seq(0, cTime, binning), seq(cTime, expTime, binning), expTime))
-  cExt <- cExt[rep(seq_len(nrow(cExt)), each = length(timePoint)),] # Expend cExt to allow concentration calculation for all time points
+  cExt <- cExt[rep(seq_len(nrow(cExt)), each = length(timePoint)),] # Expand cExt to allow concentration calculation for all time points
   out <- (cExt * (timePoint / cTime) * (timePoint <= cTime))  + (cExt * exp(-k_sr * (timePoint - cTime)) * (timePoint > cTime))
   return(data.frame(SurvivalTime = timePoint, out))
 }
@@ -364,16 +364,16 @@ concAO <- function(cExt, cTime = 0.25, expTime, k_sr = 0.625, ...) {
 #' @param cExt The concentration applied
 #' @param expTime The duration of the experiment in days
 #' @param k_ca Contact availability rate (d-1), default is 0.4
-#' @param ... Not used
+#' @param binning binning of the time vector, default 0.5 d
 #'
 #' @return A data frame containing a column with the time points and a column with the
 #' recalculated concentrations
 #' @export
 #'
 #' @examples conc <- concAC(cbind(3.1, 4, 6, 8), 4)
-concAC <- function(cExt, expTime, k_ca = 0.4, ...) {
-  timePoint <- unique(c(seq(0, expTime, 0.05), expTime))
-  cExt <- cExt[rep(seq_len(nrow(cExt)), each = length(timePoint)),] # Expend cExt to allow concentration calculation for all time points
+concAC <- function(cExt, expTime, k_ca = 0.4, binning=0.5) {
+  timePoint <- unique(c(seq(0, expTime, binning), expTime))
+  cExt <- cExt[rep(seq_len(nrow(cExt)), each = length(timePoint)),] # Expand cExt to allow concentration calculation for all time points
   out <-cExt * exp(-k_ca * timePoint)
   return(data.frame(SurvivalTime = timePoint, out))
 }

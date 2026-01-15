@@ -14,6 +14,7 @@
 #' @param concRange Argument of LCx, range of concentrations to find LDD50
 #' @param nPoints Argument of LCx, Number of time point in \code{concRange} between 0 and the
 #' maximal concentration. 100 by default.
+#' @param ncores Argument of LCx, number of cores for parallelization
 #'
 #' @return A object of class \code{ggplot} containing the graph of the comparison
 #' between LDD50 at day 2 and day 10 and the data.frame with the plotted values.
@@ -22,7 +23,7 @@
 #'
 #' @export
 #'
-ShortTimeEffects <- function(object, fullcalculation=FALSE, concRange=NULL, nPoints=NULL){
+ShortTimeEffects <- function(object, fullcalculation=FALSE, concRange=NULL, nPoints=NULL, ncores=NULL){
   UseMethod("ShortTimeEffects")
 }
 
@@ -35,6 +36,7 @@ ShortTimeEffects <- function(object, fullcalculation=FALSE, concRange=NULL, nPoi
 #' @param concRange Argument of LCx, range of concentrations to find LDD50
 #' @param nPoints Argument of LCx, Number of time point in \code{concRange} between 0 and the
 #' maximal concentration. 100 by default.
+#' @param ncores Argument of LCx, number of cores for parallelization
 #'
 #' @return A object of class \code{ggplot} containing the graph of the comparison
 #' between LDD50 at day 2 and day 10 and the data.frame with the plotted values.
@@ -44,9 +46,9 @@ ShortTimeEffects <- function(object, fullcalculation=FALSE, concRange=NULL, nPoi
 #' @examples
 #' \donttest{
 #' data(fitBetacyfluthrin_Chronic)
-#' ShortTimeEffects(fitBetacyfluthrin_Chronic)
+#' ShortTimeEffects(fitBetacyfluthrin_Chronic, ncores=2)
 #' }
-ShortTimeEffects.beeSurvFit <- function(object, fullcalculation=FALSE, concRange=NULL, nPoints=NULL){
+ShortTimeEffects.beeSurvFit <- function(object, fullcalculation=FALSE, concRange=NULL, nPoints=NULL, ncores=NULL){
   if (!is(object,"beeSurvFit")) {
     stop("predict.beeSurvFit: an object of class 'beeSurvFit' is expected")
   }
@@ -66,13 +68,13 @@ ShortTimeEffects.beeSurvFit <- function(object, fullcalculation=FALSE, concRange
 
   # compute LDD50 at 2 days assuming constant concentration
   LDD50_2 <- LCx(object, X = 50, testType = "Chronic_Oral", timeLCx = 2,
-                  concRange = c(0,maxcon), nPoints = nPoints)
+                  concRange = c(0,maxcon), nPoints = nPoints, ncores = ncores)
   if (is.na(LDD50_2$dfLCx$LCx[3])){
     cat(paste0("95% upperlimit on LDD50 value at day 2 is outside the given range [", 0,"-",maxcon ,"].
 New calculation done with range increased by a factor 5.
 If calculation still fails, try providing a larger range using the concRange argument.\n\n"))
     LDD50_2 <- LCx(object, X = 50, testType = "Chronic_Oral", timeLCx = 2,
-                   concRange = c(0,maxcon*5), nPoints = 5*nPoints)
+                   concRange = c(0,maxcon*5), nPoints = 5*nPoints, ncores = ncores)
   # use updated values
   maxcon = maxcon*5
   nPoints = nPoints*5
@@ -80,7 +82,7 @@ If calculation still fails, try providing a larger range using the concRange arg
 
   # compute LDD50 at 10 days assuming constant concentration
   LDD50_10 <- LCx(object, X = 50, testType = "Chronic_Oral", timeLCx = 10,
-                  concRange = c(0,maxcon), nPoints = nPoints)
+                  concRange = c(0,maxcon), nPoints = nPoints, ncores = ncores)
   LDD50=list(LDD50_2$dfLCx,LDD50_10$dfLCx)
 
   if (anyNA(c(LDD50_2$dfLCx$LCx[2],LDD50_10$dfLCx$LCx[3],LDD50_2$dfLCx$LCx[1],LDD50_10$dfLCx$LCx[1]))){
@@ -126,12 +128,12 @@ If calculation still fails, try providing a larger range using the concRange arg
     LDD50=list(1:10)
     for (i in c(1,3,4,5,6,7,8,9)){
       LDD50_val <- LCx(object, X = 50, testType = "Chronic_Oral", timeLCx = i,
-                       concRange = c(0,maxcon), nPoints = nPoints)$dfLCx
+                       concRange = c(0,maxcon), nPoints = nPoints, ncores = ncores)$dfLCx
       if(is.na(LDD50_val$LCx[3])){
         # largely increase the range to be able to calculate LDD50 at early times
         # in case the predefined ranges failed
         LDD50_val <- LCx(object, X = 50, testType = "Chronic_Oral", timeLCx = i,
-                         concRange = c(0,5*maxcon), nPoints = 5*nPoints)$dfLCx
+                         concRange = c(0,5*maxcon), nPoints = 5*nPoints, ncores = ncores)$dfLCx
       }
       LDD50[[i]] = LDD50_val
     }

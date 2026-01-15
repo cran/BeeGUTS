@@ -182,7 +182,7 @@ summary.beeSurvFit <- function(object, ...) {
 #' @examples
 #' \donttest{
 #' data(fitBetacyfluthrin_Chronic)
-#' out <- LCx(fitBetacyfluthrin_Chronic)
+#' out <- LCx(fitBetacyfluthrin_Chronic,ncores=2)
 #' summary(out)
 #' }
 summary.LCx <- function(object, ...) {

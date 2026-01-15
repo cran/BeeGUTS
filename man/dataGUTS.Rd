@@ -53,6 +53,7 @@ optional arguments to be passed to the concentration reconstruction need to be d
 \item \code{cstConcCal = } logical, recalculate concentration in the Chronic_Oral test from mg a.s./kg feed to Xg/bee (default is TRUE)
 \item \code{f_rate = } numerical vector, feeding rate used in the concentration recalculation in the Chronic_Oral (default is 25 mg/bee/day for honey bee)
 \item \code{targConc =} numerical scalar, target concentration unit in the recalculation in the Chronic_Oral, 1 for µg/bee, 2 for ng/bee, 3 for mg/bee (default is 1).
+\item \code{binning =} binning of the time vector of the exposure for acute tests (Acute_Oral and Acute_Contact), default 0.5 d
 }}
 }
 \value{

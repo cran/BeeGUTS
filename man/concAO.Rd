@@ -4,7 +4,7 @@
 \alias{concAO}
 \title{Recalculate concentration for the acute oral tests for bees}
 \usage{
-concAO(cExt, cTime = 0.25, expTime, k_sr = 0.625, ...)
+concAO(cExt, cTime = 0.25, expTime, k_sr = 0.625, binning = 0.5)
 }
 \arguments{
 \item{cExt}{A dataframe of concentrations at time 0 concentration applied}
@@ -15,7 +15,7 @@ concAO(cExt, cTime = 0.25, expTime, k_sr = 0.625, ...)
 
 \item{k_sr}{Stomach release rate (d-1), default is 0.625}
 
-\item{...}{Not used}
+\item{binning}{binning of the time vector, default 0.5 d}
 }
 \value{
 A data frame containing a column with the time points and a column with the
